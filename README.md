@@ -1,94 +1,70 @@
 # Car Sales & Service Analytics Dashboard
 
-## Overview
+An exploratory analytics project using a car sales workbook to study sales volume, profitability, dealer performance, model-level results, recalls, and customer sentiment across the 2018–2019 period described by the project dataset.
 
-This project analyzes car sales and after-sales service (recalls and sentiment) across multiple models and dealers (2018-2019), based on `CarSalesByModelStart-copy.xlsx`. It delivers key insights and business outcomes via Python (data wrangling) and interactive dashboards (Power BI/Tableau), helping stakeholders make data-driven decisions.
+## Project Objective
 
----
+Provide an accessible view of commercial and after-sales performance so stakeholders can compare vehicle models and dealers, monitor changes over time, and investigate service-related signals.
 
-##  Data Description
+## Data
 
-- **File:** `CarSalesByModelStart-copy.xlsx`
-- **Key Sheets:**
-  - **CarSales:** Raw sales transactions (Date, Model, Dealer, Quantity, Profit)
-  - **Sheet1:** Sum of quantity sold by dealer
-  - **Sheet2:** Monthly profit by model
-  - **Sheet3:** Annual profit by dealer
-  - **Sheet4:** Model-dealer-wise profit
+The repository contains the Excel workbook `CarSalesByModelStart copy.xlsx`. The README and analysis script refer to a `CarSales` worksheet with fields such as date, model, dealer, quantity sold, and profit.
 
----
+## Workflow
 
-## Process & Tech Stack
+1. Load the workbook using pandas.
+2. Remove rows with missing values in the current cleaning script.
+3. Parse the transaction date.
+4. Derive a year-month field for time-based grouping.
+5. Aggregate units sold by model and profit by dealer.
+6. Review the accompanying sales and service dashboard screenshots and reported insights.
 
-### 1. Data Loading & Cleaning
-```
-import pandas as pd
-data = pd.read_excel('CarSalesByModelStart-copy.xlsx', sheet_name='CarSales')
-data.dropna(inplace=True)
-data['Date'] = pd.to_datetime(data['Date'])
-```
+## Reported Results
 
+The existing project documentation reports:
 
-### 2. Feature Engineering
+- Total profit: **$29,968,866**
+- Total quantity sold: **58,118 units**
+- Labrador and Salish as leading models by sales/profit
+- Dealer 1288 as a strong performer
+- Sales/profit seasonality around May–June
+- Recall and sentiment patterns that warrant after-sales investigation
 
-```
-data['YearMonth'] = data['Date'].dt.to_period('M')
-```
+These figures and conclusions are transcribed from the project's existing analysis notes and should be validated against the workbook when the analysis is rerun.
 
-### 3. Aggregations
+## Repository Contents
 
-Sales by model
-```
-sales_by_model = data.groupby('Model')['Quantity Sold'].sum()
-```
-
-Profit by dealer
-```
-profit_by_dealer = data.groupby('Dealer ID')['Profit'].sum()
+```text
+.
+├── CarSalesByModelStart copy.xlsx
+├── data_.py
+└── README.md
 ```
 
+## Run the Python Analysis
 
-### 4. Visualization
+Prerequisites: Python 3 and pandas, openpyxl.
 
-- Plots in **matplotlib/Power BI/Tableau**:
-  - Monthly Profit & Units Sold
-  - Recalls by Model/System
-  - Profit by Dealer
-  - Sentiment Breakdown
+```bash
+pip install pandas openpyxl
+python data_.py
+```
 
----
+The script expects the workbook path configured in the file to resolve from the working directory. Run it from the repository root and adjust the path locally if your environment differs.
 
-## 📊 Dashboards
+## Tools
 
-**Sales Dashboard:**
-<img width="694" height="385" alt="Screenshot 2025-07-30 at 1 46 50 PM" src="https://github.com/user-attachments/assets/09c58e81-7c39-486c-99af-ecdae23467ce" />
+- Python
+- pandas
+- Excel
+- Dashboard / visualization deliverables referenced in the project documentation
 
+## Limitations
 
-**Service Dashboard:**
-<img width="653" height="390" alt="Screenshot 2025-07-30 at 1 47 01 PM" src="https://github.com/user-attachments/assets/56c8f85f-7802-4a0b-a5cd-83e66141b5af" />
+- The current Python script is a compact cleaning and aggregation workflow, not a complete automated dashboard pipeline.
+- The script drops every row containing a missing value; this can remove useful records and should be reviewed before production use.
+- Findings depend on the supplied workbook and its definitions of profit, sales, recalls, and sentiment.
 
+## Author
 
----
-
-## 📌 Insights & Outcomes
-
-- **Total Profit:** $29,968,866
-- **Total Quantity Sold:** 58,118 units
-- **Top Models:** Labrador and Salish lead in both profit and sales.
-- **Best Dealers:** Dealer 1288 has the highest profit consistency.
-- **Seasonality:** Sales/profit peak around May-June, then drop in winter.
-- **Recalls:** Labrador faces the highest recalls; major systems affected include Steering, Brakes, Engine.
-- **Sentiment:** Predominantly Positive with periodic Negative spikes correlating to recall surges.
-- **Underperformers:** Hudson, Champlain show lower sales and higher recall/negative sentiment.
-- **Dealer Trends:** Profits mirror sales volumes across dealers.
-
-
----
-
-## 🏁 Conclusion
-
-This analytics suite delivers actionable insights on car model & dealer performance, customer sentiment, and recall root causes. The process enables strategic interventions for marketing and after-sales improvement.
-
----
-
-*For more details, refer to the project code, Excel file, and interactive dashboards.*
+Sai Datta Putta
