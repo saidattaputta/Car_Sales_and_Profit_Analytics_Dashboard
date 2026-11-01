@@ -65,6 +65,9 @@ The script expects the workbook path configured in the file to resolve from the 
 - The script drops every row containing a missing value; this can remove useful records and should be reviewed before production use.
 - Findings depend on the supplied workbook and its definitions of profit, sales, recalls, and sentiment.
 
-## Author
 
-Sai Datta Putta
+---
+
+**Sai Datta Putta**
+
+[LinkedIn](https://www.linkedin.com/in/sai-datta-putta/)
